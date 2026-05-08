@@ -10,7 +10,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <!-- Font Awesome 6 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -49,120 +49,188 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  gap: 16px;
+  gap: 24px;
 }
 
-/* ===== EN-TÊTE AVEC FOND DE CARTE ET ICÔNES STATIQUES ===== */
-.hero-section {
+/* ===== EN-TÊTE ULTRA CAPTIVANT ===== */
+.hero-banner {
   position: relative;
-  border-radius: 28px;
-  padding: 40px 20px;
+  width: 100%;
+  border-radius: 32px;
   overflow: hidden;
-  text-align: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-  /* Fond de carte (motif de routes) + dégradé superposé */
-  background: linear-gradient(135deg, rgba(15,43,94,0.85), rgba(30,74,138,0.85)),
-              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" opacity="0.15"><path fill="none" stroke="white" stroke-width="1.5" d="M100 100 L700 200 M50 300 L750 250 M200 500 L600 400 M150 150 L300 450 M650 120 L500 550 M350 50 L400 580" stroke-dasharray="4 4"/><circle cx="200" cy="200" r="3" fill="white"/><circle cx="600" cy="150" r="3" fill="white"/><circle cx="400" cy="450" r="3" fill="white"/><path fill="none" stroke="white" stroke-width="2" d="M 250 300 Q 300 280 350 310 T 450 320"/><path fill="none" stroke="white" stroke-width="2" d="M 500 400 Q 550 380 600 420 T 700 400"/></svg>');
-  background-size: cover, auto;
-  background-blend-mode: overlay;
-}
-
-/* Dégradé supplémentaire pour assombrir légèrement et améliorer la lisibilité du texte */
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.2) 100%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.floating-icons {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.marker-icon {
-  position: absolute;
-  background: rgba(37,99,235,0.85);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  background: linear-gradient(135deg, #0a2b4f, #0f3b6a, #1a4a7a);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  border: 2px solid rgba(255,255,255,0.7);
-  color: white;
-  font-size: 1.3rem;
-  backdrop-filter: blur(2px);
-  transition: transform 0.2s;
+  text-align: center;
+  padding: 3.5rem 2rem;
+  box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+.hero-banner:hover {
+  transform: translateY(-3px) scale(1.01);
 }
 
-/* Disposition des icônes */
-.marker-icon:nth-child(1) { top: 12%; left: 5%; }
-.marker-icon:nth-child(2) { top: 25%; left: 12%; }
-.marker-icon:nth-child(3) { top: 15%; right: 8%; }
-.marker-icon:nth-child(4) { top: 40%; right: 15%; }
-.marker-icon:nth-child(5) { bottom: 20%; left: 10%; }
-.marker-icon:nth-child(6) { bottom: 35%; right: 20%; }
-.marker-icon:nth-child(7) { top: 65%; right: 5%; }
-.marker-icon:nth-child(8) { bottom: 12%; right: 25%; }
-.marker-icon:nth-child(9) { bottom: 18%; left: 20%; }
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-.hero-text {
+/* Vagues animées en arrière-plan */
+.wave-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.wave-bg svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  opacity: 0.3;
+  animation: waveMove 10s linear infinite;
+}
+.wave-bg svg:nth-child(2) {
+  bottom: 10px;
+  opacity: 0.2;
+  animation-duration: 15s;
+  animation-direction: reverse;
+}
+@keyframes waveMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50px); }
+}
+
+/* Particules flottantes (cercles lumineux) */
+.particle {
+  position: absolute;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floatParticle 12s infinite ease-in-out;
+  z-index: 0;
+}
+@keyframes floatParticle {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-30px) translateX(15px) scale(1.2); opacity: 0.8; }
+  100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.4; }
+}
+
+.hero-content {
   position: relative;
   z-index: 3;
-  color: white;
-  text-shadow: 0 2px 15px rgba(0,0,0,0.4);
-}
-.hero-text h1 {
-  font-size: clamp(1.8rem, 5vw, 2.8rem);
-  font-weight: 900;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: -1px;
-  margin-bottom: 12px;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-.hero-text h1 i {
-  margin-right: 12px;
-  font-size: clamp(1.4rem, 4vw, 2.2rem);
-  vertical-align: middle;
-}
-.hero-text p {
-  font-size: clamp(0.9rem, 3vw, 1.2rem);
-  opacity: 0.95;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
-  line-height: 1.4;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(5px);
-  padding: 8px 20px;
-  border-radius: 60px;
-  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
-  font-weight: 500;
-  border: 1px solid rgba(255,255,255,0.4);
-  margin-top: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-/* ===== STATISTIQUES RESPONSIVES (inchangées) ===== */
+/* Effet de brillance sur le titre */
+.hero-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.hero-title i {
+  font-size: 3.8rem;
+  color: #facc15;
+  filter: drop-shadow(0 0 8px rgba(250,204,21,0.6));
+  animation: pulseIcon 1.8s infinite;
+}
+@keyframes pulseIcon {
+  0% { transform: scale(1); text-shadow: 0 0 0 #facc15; }
+  50% { transform: scale(1.08); text-shadow: 0 0 12px #facc15; }
+  100% { transform: scale(1); text-shadow: 0 0 0 #facc15; }
+}
+.hero-title h1 {
+  font-size: clamp(2.3rem, 8vw, 4.8rem);
+  font-weight: 900;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #FFFFFF, #E0F2FE, #FFEAA7);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shine 5s linear infinite;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* sous-titre avec ligne lumineuse */
+.hero-subtitle {
+  font-size: clamp(1.05rem, 3vw, 1.3rem);
+  font-weight: 500;
+  color: rgba(255,255,255,0.92);
+  margin-top: 0.25rem;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+  backdrop-filter: blur(2px);
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 3px solid #facc15;
+  border-right: 3px solid #facc15;
+  background: rgba(0,0,0,0.2);
+  border-radius: 40px;
+}
+
+/* Stats box modernisé avec animation */
+.stats-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(16px);
+  border-radius: 80px;
+  padding: 0.9rem 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  cursor: default;
+}
+.stats-box:hover {
+  background: rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+.stats-box span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.2px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.stats-box i {
+  font-size: 1.3rem;
+  opacity: 1;
+  color: #facc15;
+  animation: subtleBounce 2s infinite;
+}
+@keyframes subtleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* ===== STATISTIQUES (3 cartes cliquables) ===== */
 .stats-row {
   display: flex;
   flex-wrap: wrap;
@@ -254,12 +322,12 @@ body {
 .stat-card.non-clickable:hover::before { opacity: 0; }
 .stat-card.non-clickable:active { transform: scale(1); }
 
-/* ===== CARTE RESPONSIVE ===== */
+/* ===== CARTE ===== */
 .map-wrapper {
   min-height: 400px;
   height: 60vh;
   max-height: 650px;
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
   box-shadow: var(--shadow-md);
   border: 1px solid rgba(30,58,138,0.1);
@@ -271,7 +339,7 @@ body {
   width: 100%;
 }
 
-/* ===== ZOOM (haut à gauche) ===== */
+/* ===== ZOOM ===== */
 .leaflet-control-zoom {
   border: none !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
@@ -303,7 +371,7 @@ body {
   border-radius: 0 0 12px 12px !important;
 }
 
-/* ===== BARRE DE RECHERCHE RESPONSIVE ===== */
+/* ===== BARRE DE RECHERCHE ===== */
 .search-overlay {
   position: absolute;
   top: 16px;
@@ -336,7 +404,31 @@ body {
   color: #1E3A8A;
 }
 
-/* ===== MODAL RESPONSIVE ===== */
+/* Marqueurs personnalisés : ancrage parfait */
+.custom-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+.custom-marker-inner {
+  transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.custom-div-icon:hover .custom-marker-inner {
+  transform: scale(1.15);
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+}
+
+/* animation flash */
+@keyframes markerFlash {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.8); }
+  50% { transform: scale(1.25); box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+}
+.marker-flash .custom-marker-inner {
+  animation: markerFlash 0.4s ease-out;
+}
+
+/* ===== MODAL ===== */
 .modal {
   display: none;
   position: fixed;
@@ -450,24 +542,6 @@ body {
   from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* Animations marqueurs carte */
-.custom-div-icon {
-  transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-}
-.custom-div-icon:hover {
-  transform: scale(1.15);
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-}
-@keyframes markerFlash {
-  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.7); transform: scale(1); }
-  50% { box-shadow: 0 0 0 10px rgba(255,255,255,0); transform: scale(1.2); }
-  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); transform: scale(1); }
-}
-.marker-flash {
-  animation: markerFlash 0.4s ease-out;
-}
-
 footer {
   text-align: center;
   margin-top: 24px;
@@ -477,13 +551,22 @@ footer {
   padding-top: 16px;
 }
 
-/* ===== RESPONSIVE BREAKPOINTS ===== */
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1000px) {
+  .hero-title h1 { font-size: 2.3rem; }
+  .hero-title i { font-size: 2rem; }
+  .hero-subtitle { font-size: 1rem; }
+  .stats-box { padding: 0.6rem 1.5rem; gap: 1.2rem; }
+  .stats-box span { font-size: 0.85rem; }
+  .stats-box i { font-size: 1rem; }
+  .hero-banner { padding: 2rem 1.5rem; }
+}
+@media (max-width: 640px) {
+  .stats-box { flex-direction: column; gap: 0.8rem; border-radius: 2rem; }
+  .hero-banner { border-radius: 28px; }
+}
 @media (max-width: 768px) {
-  .dashboard-container { padding: 12px; gap: 12px; }
-  .hero-section { padding: 25px 16px; }
-  .hero-text h1 { font-size: 1.6rem; }
-  .hero-text p { font-size: 0.8rem; }
-  .hero-badge { padding: 6px 14px; gap: 6px; font-size: 0.7rem; }
+  .dashboard-container { padding: 12px; gap: 16px; }
   .stats-row { gap: 12px; }
   .stat-card { padding: 12px 14px; min-width: 100px; }
   .stat-icon { width: 40px; height: 40px; font-size: 1.2rem; }
@@ -491,23 +574,15 @@ footer {
   .stat-label { font-size: 0.6rem; }
   .search-overlay { top: 12px; right: 12px; padding: 6px 14px; gap: 8px; }
   .search-overlay input { width: 140px; font-size: 0.8rem; }
-  .search-overlay i { font-size: 0.9rem; }
   .map-wrapper { height: 50vh; min-height: 300px; }
-  .marker-icon { width: 32px; height: 32px; font-size: 1rem; }
   .leaflet-control-zoom a { width: 32px !important; height: 32px !important; line-height: 32px !important; font-size: 18px !important; }
 }
-
 @media (max-width: 480px) {
   .stat-card { flex-direction: row; align-items: center; gap: 8px; }
   .stat-icon { width: 36px; height: 36px; font-size: 1rem; }
   .stat-number { font-size: 1.1rem; }
   .search-overlay input { width: 120px; }
-  .hero-text h1 { font-size: 1.3rem; }
-  .hero-badge { font-size: 0.65rem; }
-  .modal-header h2 { font-size: 1rem; }
-  .modal-table td { font-size: 0.7rem; padding: 6px 8px; }
 }
-
 @media (min-width: 1200px) {
   .map-wrapper { height: 65vh; min-height: 550px; }
   .search-overlay input { width: 280px; }
@@ -517,29 +592,39 @@ footer {
 
 <body>
 <div class="dashboard-container">
-  <!-- En-tête avec fond de carte (routes) et icônes -->
-  <div class="hero-section">
-    <div class="floating-icons">
-      <div class="marker-icon"><i class="fas fa-shopping-cart"></i></div>
-      <div class="marker-icon"><i class="fas fa-building"></i></div>
-      <div class="marker-icon"><i class="fas fa-utensils"></i></div>
-      <div class="marker-icon"><i class="fas fa-mug-hot"></i></div>
-      <div class="marker-icon"><i class="fas fa-store"></i></div>
-      <div class="marker-icon"><i class="fas fa-shopping-bag"></i></div>
-      <div class="marker-icon"><i class="fas fa-tshirt"></i></div>
-      <div class="marker-icon"><i class="fas fa-cut"></i></div>
-      <div class="marker-icon"><i class="fas fa-apple-alt"></i></div>
+  <!-- EN-TÊTE ULTRA CAPTIVANT avec vagues, particules, brillance -->
+  <div class="hero-banner">
+    <!-- Vagues animées SVG -->
+    <div class="wave-bg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path fill="rgba(255,255,255,0.15)" fill-opacity="0.5" d="M0,192L48,197.3C96,203,192,213,288,208C384,203,480,181,576,176C672,171,768,181,864,192C960,203,1056,213,1152,208C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path fill="rgba(255,215,0,0.08)" fill-opacity="0.3" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,138.7C672,139,768,181,864,197.3C960,213,1056,203,1152,186.7C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
     </div>
-    <div class="hero-text">
-      <h1><i class="fas fa-location-dot"></i> Abobo H-B TradeMap</h1>
-      <p>Visualisez tous les commerces de la zone Houphouet Boigny</p>
-      <div class="hero-badge">
-        <i class="fas fa-store"></i> 92 commerces
-        <i class="fas fa-tag"></i> 9 catégories
+    <!-- Particules CSS -->
+    <div class="particle" style="width: 8px; height: 8px; top: 15%; left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="width: 12px; height: 12px; top: 70%; left: 85%; animation-delay: 1s;"></div>
+    <div class="particle" style="width: 6px; height: 6px; top: 40%; left: 20%; animation-delay: 2s;"></div>
+    <div class="particle" style="width: 10px; height: 10px; top: 80%; left: 30%; animation-delay: 0.5s;"></div>
+    <div class="particle" style="width: 14px; height: 14px; top: 20%; left: 75%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="width: 7px; height: 7px; top: 55%; left: 50%; animation-delay: 3s;"></div>
+
+    <div class="hero-content">
+      <div class="hero-title">
+        <i class="fas fa-location-dot"></i>
+        <h1>Abobo H-B TradeMap</h1>
+      </div>
+      <p class="hero-subtitle">Visualisez tous les commerces de la zone Houphouët-Boigny</p>
+      <div class="stats-box">
+        <span><i class="fas fa-store"></i> 92 commerces</span>
+        <span><i class="fas fa-tags"></i> 9 catégories</span>
       </div>
     </div>
   </div>
 
+  <!-- STATISTIQUES (3 cartes cliquables) -->
   <div class="stats-row">
     <div class="stat-card clickable" id="statTotal">
       <div class="stat-icon"><i class="fas fa-store"></i></div>
@@ -564,6 +649,7 @@ footer {
     </div>
   </div>
 
+  <!-- CARTE + RECHERCHE -->
   <div class="map-wrapper">
     <div id="map"></div>
     <div class="search-overlay">
@@ -578,6 +664,7 @@ footer {
   </footer>
 </div>
 
+<!-- MODAL (même structure) -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -596,9 +683,7 @@ footer {
 </div>
 
 <script>
-// ======================================================
-// DONNÉES COMPLÈTES – 92 COMMERCES
-// ======================================================
+// ==================== DONNÉES COMPLÈTES – 92 COMMERCES ====================
 const commercesData = [
   {"nom":"Boulangerie Super BAC","cat":"Alimentation","lat":5.43889901,"lon":-4.00594234},
   {"nom":"Salle de Sport Abidjan-Paris","cat":"Loisirs","lat":5.439222,"lon":-4.00575},
@@ -694,46 +779,34 @@ const commercesData = [
   {"nom":"Coiffure Christelle","cat":"Coiffure_Beaute","lat":5.44478167,"lon":-4.013035}
 ];
 
-// ========== COULEURS & ICONES ==========
+// COULEURS & ICONES
 const categoryColors = {
-  "Alimentation": "#10B981",
-  "Restauration": "#F59E0B",
-  "Services": "#3B82F6",
-  "Loisirs": "#8B5CF6",
-  "Coiffure_Beaute": "#EC4899",
-  "Mode_Textile": "#F97316",
-  "Commerce_General": "#6B7280",
-  "Sante": "#EF4444",
-  "Autres": "#94A3B8"
+  "Alimentation": "#10B981", "Restauration": "#F59E0B", "Services": "#3B82F6",
+  "Loisirs": "#8B5CF6", "Coiffure_Beaute": "#EC4899", "Mode_Textile": "#F97316",
+  "Commerce_General": "#6B7280", "Sante": "#EF4444", "Autres": "#94A3B8"
 };
 const categoryIcon = {
-  "Alimentation": "fa-apple-alt",
-  "Restauration": "fa-utensils",
-  "Services": "fa-concierge-bell",
-  "Loisirs": "fa-gamepad",
-  "Coiffure_Beaute": "fa-cut",
-  "Mode_Textile": "fa-tshirt",
-  "Commerce_General": "fa-shopping-bag",
-  "Sante": "fa-heartbeat",
-  "Autres": "fa-ellipsis-h"
+  "Alimentation": "fa-apple-alt", "Restauration": "fa-utensils", "Services": "fa-concierge-bell",
+  "Loisirs": "fa-gamepad", "Coiffure_Beaute": "fa-cut", "Mode_Textile": "fa-tshirt",
+  "Commerce_General": "fa-shopping-bag", "Sante": "fa-heartbeat", "Autres": "fa-ellipsis-h"
 };
 function getColorForCategory(cat) { return categoryColors[cat] || "#3B82F6"; }
 function getIconClass(cat) { return categoryIcon[cat] || "fa-store"; }
 
+// Création d'un marqueur avec ancrage PARFAIT
 function createCustomMarker(lat, lng, category, nom) {
   const bg = getColorForCategory(category);
-  const iconHtml = `<div style="background:${bg}; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.3); border:2px solid white; font-size:0.9rem; color:white" class="custom-marker-inner"><i class="fas ${getIconClass(category)}"></i></div>`;
-  const icon = L.divIcon({ html: iconHtml, iconSize: [32,32], className: "custom-div-icon", popupAnchor: [0, -16] });
-  const marker = L.marker([lat, lng], { icon: icon });
-  marker.bindPopup(`
-    <b>${nom}</b><br>
-    📂 ${category}<br>
-    📍 Coordonnées GPS : ${lat.toFixed(6)}, ${lng.toFixed(6)}
-  `);
-  marker.on('click', function() {
-    map.flyTo([lat, lng], 17);
-    this.openPopup();
+  const iconHtml = `<div class="custom-marker-inner" style="background:${bg}; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.3); border:2px solid white; font-size:0.9rem; color:white;"><i class="fas ${getIconClass(category)}"></i></div>`;
+  const icon = L.divIcon({
+    html: iconHtml,
+    iconSize: [32, 32],
+    iconAnchor: [16, 16],
+    popupAnchor: [0, -18],
+    className: "custom-div-icon"
   });
+  const marker = L.marker([lat, lng], { icon: icon });
+  marker.bindPopup(`<b>${nom}</b><br>📂 ${category}<br>📍 ${lat.toFixed(5)}, ${lng.toFixed(5)}`);
+  marker.on('click', () => { map.flyTo([lat, lng], 17); marker.openPopup(); });
   marker.shopData = { nom, cat: category, lat, lng };
   return marker;
 }
@@ -741,116 +814,57 @@ function createCustomMarker(lat, lng, category, nom) {
 function flashMarker(marker) {
   if (!marker._icon) return;
   marker._icon.classList.add('marker-flash');
-  setTimeout(() => {
-    marker._icon.classList.remove('marker-flash');
-  }, 400);
+  setTimeout(() => marker._icon.classList.remove('marker-flash'), 400);
 }
 
-// ========== LOGIQUE GLOBALE ==========
-let map, markersLayer;
-let activeChip = "all";
+let map, markersLayer, allMarkers = [];
 let searchTerm = "";
-let allMarkers = [];
 
 function initMap() {
   map = L.map('map').setView([5.442, -4.012], 14);
   L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-    attribution: '&copy; Google Maps',
-    maxZoom: 19,
-    subdomains: 'mt0 mt1 mt2 mt3'
+    attribution: '&copy; Google Maps', maxZoom: 19, subdomains: 'mt0 mt1 mt2 mt3'
   }).addTo(map);
   markersLayer = L.layerGroup().addTo(map);
   map.zoomControl.setPosition('topleft');
 }
 
-function createAllMarkersWithDelay() {
-  let delay = 0;
-  commercesData.forEach((shop, idx) => {
-    setTimeout(() => {
-      const marker = createCustomMarker(shop.lat, shop.lon, shop.cat, shop.nom);
-      marker.shopData = shop;
-      allMarkers.push(marker);
-      markersLayer.addLayer(marker);
-      if (marker._icon) {
-        marker._icon.style.transform = 'scale(0)';
-        setTimeout(() => {
-          marker._icon.style.transform = '';
-        }, 50);
-      }
-    }, delay);
-    delay += 15;
-  });
-  setTimeout(() => {
-    updateStatsAndMarkers();
-  }, delay + 100);
-}
-
-function filterMarkersByData(data) {
+function buildMarkersFromData(data) {
   markersLayer.clearLayers();
-  allMarkers = [];
-  data.forEach(shop => {
+  allMarkers = data.map(shop => {
     const marker = createCustomMarker(shop.lat, shop.lon, shop.cat, shop.nom);
-    marker.shopData = shop;
-    allMarkers.push(marker);
     markersLayer.addLayer(marker);
+    return marker;
   });
 }
 
 function getFilteredData() {
-  return commercesData.filter(shop => {
-    const matchCat = activeChip === "all" || shop.cat === activeChip;
-    const matchSearch = shop.nom.toLowerCase().includes(searchTerm) || shop.cat.toLowerCase().includes(searchTerm);
-    return matchCat && matchSearch;
-  });
+  return commercesData.filter(shop => shop.nom.toLowerCase().includes(searchTerm) || shop.cat.toLowerCase().includes(searchTerm));
 }
 
 function updateStatsAndMarkers() {
-  const data = getFilteredData();
-  document.getElementById("affichésStat").innerText = data.length;
-  filterMarkersByData(data);
+  const filtered = getFilteredData();
+  document.getElementById("affichésStat").innerText = filtered.length;
+  buildMarkersFromData(filtered);
 }
 
+// Datalist
 const datalist = document.getElementById("commerceList");
-function updateDatalist() {
-  const names = commercesData.map(shop => shop.nom);
-  datalist.innerHTML = "";
-  names.forEach(name => {
-    const option = document.createElement("option");
-    option.value = name;
-    datalist.appendChild(option);
-  });
-}
-updateDatalist();
+commercesData.forEach(shop => { const opt = document.createElement("option"); opt.value = shop.nom; datalist.appendChild(opt); });
 
 const searchInput = document.getElementById("recherche");
 searchInput.addEventListener("input", (e) => {
-  const value = e.target.value;
-  searchTerm = value.toLowerCase();
+  searchTerm = e.target.value.toLowerCase();
   updateStatsAndMarkers();
-  const exactMatch = commercesData.find(shop => shop.nom.toLowerCase() === searchTerm);
-  if (exactMatch) {
-    map.flyTo([exactMatch.lat, exactMatch.lon], 17);
-    const targetMarker = allMarkers.find(m => m.shopData.nom === exactMatch.nom);
-    if (targetMarker) {
-      targetMarker.openPopup();
-      flashMarker(targetMarker);
-    }
-  }
-});
-searchInput.addEventListener("change", (e) => {
-  const value = e.target.value;
-  const exactMatch = commercesData.find(shop => shop.nom === value);
-  if (exactMatch) {
-    map.flyTo([exactMatch.lat, exactMatch.lon], 17);
-    const targetMarker = allMarkers.find(m => m.shopData.nom === exactMatch.nom);
-    if (targetMarker) {
-      targetMarker.openPopup();
-      flashMarker(targetMarker);
-    }
+  const exact = commercesData.find(s => s.nom.toLowerCase() === searchTerm);
+  if (exact) {
+    map.flyTo([exact.lat, exact.lon], 17);
+    const target = allMarkers.find(m => m.shopData.nom === exact.nom);
+    if (target) { target.openPopup(); flashMarker(target); }
   }
 });
 
-// MODAL DOUBLE MODE
+// MODAL (identique à la version précédente pour la fonctionnalité)
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modalTitle");
 const modalTableBody = document.getElementById("modalTableBody");
@@ -865,30 +879,23 @@ function renderModal() {
     commercesData.forEach(shop => {
       const row = modalTableBody.insertRow();
       row.insertCell(0).innerHTML = `<strong>${shop.nom}</strong>`;
-      row.insertCell(1).style.display = "none";
       row.addEventListener("click", () => {
         modal.style.display = "none";
         map.flyTo([shop.lat, shop.lon], 17);
-        const targetMarker = allMarkers.find(m => m.shopData.nom === shop.nom);
-        if(targetMarker) {
-          targetMarker.openPopup();
-          flashMarker(targetMarker);
-        }
+        const target = allMarkers.find(m => m.shopData.nom === shop.nom);
+        if (target) { target.openPopup(); flashMarker(target); }
       });
     });
-    const table = document.querySelector("#modalTable");
-    if (table.querySelector("thead")) table.querySelector("thead").remove();
+    const tbl = document.querySelector("#modalTable");
+    if (tbl.querySelector("thead")) tbl.querySelector("thead").remove();
     const thead = document.createElement("thead");
     thead.innerHTML = '<tr><th>Nom du commerce</th></tr>';
-    table.prepend(thead);
-    modalTitle.innerText = "Liste des commerces (92)";
-  } 
-  else {
+    tbl.prepend(thead);
+    modalTitle.innerText = `Liste des commerces (${commercesData.length})`;
+  } else {
     modalChipsContainer.style.display = "flex";
     let filtered = commercesData;
-    if (currentModalCategory !== "all") {
-      filtered = filtered.filter(shop => shop.cat === currentModalCategory);
-    }
+    if (currentModalCategory !== "all") filtered = filtered.filter(s => s.cat === currentModalCategory);
     modalTableBody.innerHTML = "";
     filtered.forEach(shop => {
       const row = modalTableBody.insertRow();
@@ -898,67 +905,48 @@ function renderModal() {
       row.addEventListener("click", () => {
         modal.style.display = "none";
         map.flyTo([shop.lat, shop.lon], 17);
-        const targetMarker = allMarkers.find(m => m.shopData.nom === shop.nom);
-        if(targetMarker) {
-          targetMarker.openPopup();
-          flashMarker(targetMarker);
-        }
+        const target = allMarkers.find(m => m.shopData.nom === shop.nom);
+        if (target) { target.openPopup(); flashMarker(target); }
       });
     });
-    const table = document.querySelector("#modalTable");
-    if (table.querySelector("thead")) table.querySelector("thead").remove();
+    const tbl = document.querySelector("#modalTable");
+    if (tbl.querySelector("thead")) tbl.querySelector("thead").remove();
     const thead = document.createElement("thead");
-    thead.innerHTML = '<td><th>Nom du commerce</th><th>Catégorie</th></tr>';
-    table.prepend(thead);
-    const total = filtered.length;
-    modalTitle.innerText = currentModalCategory === "all" ? `Tous les commerces (${total})` : `Catégorie : ${currentModalCategory} (${total})`;
+    thead.innerHTML = '<tr><th>Nom du commerce</th><th>Catégorie</th></tr>';
+    tbl.prepend(thead);
+    modalTitle.innerText = currentModalCategory === "all" ? `Tous les commerces (${filtered.length})` : `Catégorie : ${currentModalCategory} (${filtered.length})`;
   }
 }
-
 function buildModalChips() {
   if (currentModalMode !== "full") return;
   modalChipsContainer.innerHTML = `<div class="modal-chip ${currentModalCategory === 'all' ? 'active' : ''}" data-cat="all">Tous (92)</div>`;
-  const categories = [...new Set(commercesData.map(c => c.cat))].sort();
-  categories.forEach(cat => {
+  const cats = [...new Set(commercesData.map(c => c.cat))].sort();
+  cats.forEach(cat => {
     const count = commercesData.filter(c => c.cat === cat).length;
     const chip = document.createElement("div");
     chip.className = `modal-chip ${currentModalCategory === cat ? 'active' : ''}`;
     chip.setAttribute("data-cat", cat);
     chip.innerText = `${cat} (${count})`;
+    chip.addEventListener("click", (e) => {
+      currentModalCategory = chip.getAttribute("data-cat");
+      renderModal();
+      buildModalChips();
+    });
     modalChipsContainer.appendChild(chip);
   });
-  modalChipsContainer.querySelectorAll(".modal-chip").forEach(chip => {
-    chip.removeEventListener("click", handleModalChipClick);
-    chip.addEventListener("click", handleModalChipClick);
-  });
 }
-function handleModalChipClick(e) {
-  const chip = e.currentTarget;
-  currentModalCategory = chip.getAttribute("data-cat");
-  renderModal();
-  buildModalChips();
-}
-function openModalTotal() {
-  currentModalMode = "simple";
-  renderModal();
-  modal.style.display = "flex";
-}
-function openModalCategories() {
-  currentModalMode = "full";
-  currentModalCategory = "all";
-  renderModal();
-  buildModalChips();
-  modal.style.display = "flex";
-}
+function openModalTotal() { currentModalMode = "simple"; renderModal(); modal.style.display = "flex"; }
+function openModalCategories() { currentModalMode = "full"; currentModalCategory = "all"; renderModal(); buildModalChips(); modal.style.display = "flex"; }
 
 document.getElementById("statTotal").addEventListener("click", openModalTotal);
 document.getElementById("statCategories").addEventListener("click", openModalCategories);
-document.getElementById("modalCloseBtn").addEventListener("click", () => { modal.style.display = "none"; });
+document.getElementById("modalCloseBtn").addEventListener("click", () => modal.style.display = "none");
 window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
 
 document.addEventListener("DOMContentLoaded", () => {
   initMap();
-  createAllMarkersWithDelay();
+  buildMarkersFromData(commercesData);
+  document.getElementById("affichésStat").innerText = commercesData.length;
 });
 </script>
 </body>
